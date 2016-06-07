@@ -1,0 +1,138 @@
+body {
+	background: url("../img/texture2.png") repeat left top;
+	display:block;
+ 	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+	color: black;
+}
+
+#list {
+	position: absolute;
+}
+
+#map {
+	position: absolute;
+	height: 100%;
+	display: inline;
+	right:0px;
+    /*top:50px;
+    bottom:0;*/
+}
+
+.main, .upperBox {
+	display: -ms-flexbox;
+	display: -moz-flex;
+	display: -webkit-flex;
+	display: flex;
+	justify-content: flex-start;
+}
+
+.current {
+    background: #e7e7e7;
+}
+
+/* infowindow customization thanks to: http://en.marnoto.com/2014/09/5-formas-de-personalizar-infowindow.html*/
+
+.infowindow{
+	background: url("../img/texture2.png") repeat left top;
+	 /*margin: 0,0,0,0;*/
+	font-family: 'Open Sans Condensed', sans-serif;
+   font-size: 12px;
+   font-weight: 100;
+   padding: 10px;
+   /*background-color: #73f0a5;*/
+   color: black;
+   margin: 1px;
+   border-radius: 2px 2px 0 0;
+
+}
+
+.gm-style-iw {
+   width: 350px !important;
+   top: 0 !important;
+   left: 0 !important;
+   background-color: #fff;
+   box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
+   border: 1px solid rgba(0, 255, 0, 0.3);
+   border-radius: 1px 1px 0 0;
+}
+
+.header {
+	display: inline;
+/*	display: -ms-flexbox;
+	display: -moz-flex;
+	display: -webkit-flex;
+	display: flex;
+	justify-content: flex-start;*/
+}
+
+.myTitle {
+	display: inline;
+	margin-left: 5%;
+	font-size: 18px;
+}
+
+.menuTitle{
+	display: none;
+	text-align: center;
+	padding: 3% 0;
+	border-bottom: 1px solid #ddd;
+	text-decoration: none;
+	color: #222;
+
+}
+
+/* HAMBURGER menu is a rebuild and customized concept of this code http://codepen.io/corysimmons/pen/KbFcg */
+
+.hamburger {
+  /*position: fixed;*/
+  /*width: 100%;*/
+  display: none;
+}
+
+.hamburger ul{
+  display: none;
+  padding: 0 1% 0 0;
+}
+
+
+button {
+  top: 15px;
+  right: 15px;
+  border: 0;
+  text-indent: 200%;
+  overflow: hidden;
+  background: rgba(255,255,255,0.8) url("http://i.imgur.com/vKRaKDX.png") center no-repeat;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  background-size: 80%;
+  width: 30px;
+  height: 30px;
+  outline: none;
+  -webkit-transition: all 400ms ease;
+  transition: all 400ms ease;
+  margin: 1%;
+}
+button.expanded {
+  -webkit-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+  background-color: transparent;
+  border: 0;
+}
+.hamburger li {
+  display: block;
+}
+
+li{
+  text-align: center;
+  padding: 3%;
+  border-bottom: 1px solid #ddd;
+  text-decoration: none;
+  color: #222;
+  font-weight: 100;
+}
+li:hover,
+li:active,
+li:focus {
+  background: #e7e7e7;
+}
