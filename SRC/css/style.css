@@ -6,15 +6,16 @@ body {
 	color: black;
 }
 
-#list {
+/*#list {
 	position: absolute;
-}
+}*/
 
 #map {
 	position: absolute;
 	height: 100%;
 	display: inline;
 	right:0px;
+	padding: 0 0 0 0;
     /*top:50px;
     bottom:0;*/
 }
@@ -35,15 +36,13 @@ body {
 
 .infowindow{
 	background: url("../img/texture2.png") repeat left top;
-	 /*margin: 0,0,0,0;*/
 	font-family: 'Open Sans Condensed', sans-serif;
-   font-size: 12px;
-   font-weight: 100;
-   padding: 10px;
-   /*background-color: #73f0a5;*/
-   color: black;
-   margin: 1px;
-   border-radius: 2px 2px 0 0;
+	font-size: 12px;
+	font-weight: 100;
+	padding: 10px;
+ 	color: black;
+ 	margin: 1px;
+	border-radius: 2px 2px 0 0;
 
 }
 
@@ -53,12 +52,13 @@ body {
    left: 0 !important;
    background-color: #fff;
    box-shadow: 0 1px 6px rgba(178, 178, 178, 0.6);
-   border: 1px solid rgba(0, 255, 0, 0.3);
+   border: 1px solid black;
    border-radius: 1px 1px 0 0;
 }
 
-.header {
+.rightBurger {
 	display: inline;
+	padding: 0 0 0 0;
 /*	display: -ms-flexbox;
 	display: -moz-flex;
 	display: -webkit-flex;
@@ -66,19 +66,26 @@ body {
 	justify-content: flex-start;*/
 }
 
+
+.sideMenu {
+	display: none;
+	padding-right: 0;
+}
+
 .myTitle {
 	display: inline;
-	margin-left: 5%;
+	margin-left: 1%;
 	font-size: 18px;
 }
 
 .menuTitle{
 	display: none;
 	text-align: center;
-	padding: 3% 0;
+	padding: 7% 0;
 	border-bottom: 1px solid #ddd;
 	text-decoration: none;
 	color: #222;
+	font-size: 18px;
 
 }
 
@@ -111,21 +118,24 @@ button {
   outline: none;
   -webkit-transition: all 400ms ease;
   transition: all 400ms ease;
-  margin: 1%;
+  margin: 1% 1% 1% 0;
 }
 button.expanded {
   -webkit-transform: rotate(-90deg);
           transform: rotate(-90deg);
   background-color: transparent;
   border: 0;
+
 }
 .hamburger li {
   display: block;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 li{
   text-align: center;
-  padding: 3%;
+  padding: 7% 2% 7% 7%;
   border-bottom: 1px solid #ddd;
   text-decoration: none;
   color: #222;
@@ -135,4 +145,58 @@ li:hover,
 li:active,
 li:focus {
   background: #e7e7e7;
+}
+
+@media (max-width: 768px) {
+
+	.sideMenu {
+		padding-left: 0;
+	}
+
+	.hamburger {
+		padding-left: 0;
+	}
+
+	.menuTitle {
+		font-size: 14px;
+	}
+
+	.infowindow{
+		font-size: 10px;
+	}
+
+	.myTitle {
+		font-size: 14px;
+	}
+
+	.hamburger li {
+		  font-size: 12px;
+	}
+
+}
+
+@media (max-width: 544px) {
+
+	.sideMenu {
+		padding-left: 0;
+	}
+
+	.hamburger {
+		padding-left: 0;
+	}
+
+	.menuTitle {
+		font-size: 12px;
+	}
+
+	.infowindow{
+		font-size: 8px;
+	}
+
+	.myTitle {
+		font-size: 12px;
+	}
+	.hamburger li {
+		font-size: 10px;
+	}
 }

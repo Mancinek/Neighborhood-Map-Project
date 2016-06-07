@@ -332,13 +332,18 @@ function setMargins() {
 $("button").click(function() {
   $(this).toggleClass("expanded");
   $("ul").toggleClass("expanded").toggle("slide");
+
+  $(".sideMenu").toggleClass("col-xs-2").toggle("slide");
   $(".menuTitle").toggleClass("expanded").toggle("slide");
+  $(".hamburger").toggleClass("col-xs-2").toggle("slide");
 
-  $("#list").toggleClass("col-md-4").toggle("slide");
-  $("#map").toggleClass("col-md-12");
-  $("#map").toggleClass("col-md-8");/*.toggle("slide", {direction: left});*/
+  // burger does'nt change class ???
+  $(".rightBurger").toggleClass("col-xs-12");
+  $(".rightBurger").toggleClass("col-xs-10");
 
-  $(".sideMenu").toggleClass("col-md-4");
-  $(".header").toggleClass("col-md-8");
-  $(".header").toggleClass("col-md-12");
+  // changing size of map container (don't know why toggle("slide") does'nt work?)
+  $("#map").toggleClass("col-xs-12");
+  $("#map").toggleClass("col-xs-10");
+
+
 });
