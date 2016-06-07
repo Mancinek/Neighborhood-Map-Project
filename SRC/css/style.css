@@ -43,11 +43,13 @@ body {
  	color: black;
  	margin: 1px;
 	border-radius: 2px 2px 0 0;
+	/*max-height: 300px;*/
 
 }
 
 .gm-style-iw {
    width: 350px !important;
+   height: 300px !important;
    top: 0 !important;
    left: 0 !important;
    background-color: #fff;
@@ -173,6 +175,10 @@ li:focus {
 		  font-size: 12px;
 	}
 
+	.gm-style-iw {
+		width: 250px !important;
+		height: 200px !important;
+	}
 }
 
 @media (max-width: 544px) {
@@ -190,7 +196,7 @@ li:focus {
 	}
 
 	.infowindow{
-		font-size: 8px;
+		font-size: 9px;
 	}
 
 	.myTitle {
@@ -198,5 +204,10 @@ li:focus {
 	}
 	.hamburger li {
 		font-size: 10px;
+	}
+
+	.gm-style-iw {
+		width: 200px !important;
+		height: 150px !important;
 	}
 }
