@@ -3,36 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Neighborhood Map</title>
-    <link rel="stylesheet" href="css/style.css">
-    <!-- <link rel="stylesheet" href="css/bootstrap.min.css"> -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,100" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/style.css">
 
 </head>
 <body>
 
-    <form id="form-container" class="form-container">
-        <label for="street">Street: </label><input type="text" id="street" value="">
-        <label for="city">City: </label><input type="text" id="city" value="">
-        <button id="submit-btn">Submit</button>
-    </form>
 
-    <hr>
+    <div class="container-fluid">
 
-    <h2 id="greeting" class="greeting">Where do you want to live?</h2>
+        <!-- HAMBURGER menu is a rebuild and customized concept of this code http://codepen.io/corysimmons/pen/KbFcg -->
+
+        <div class="row, upperBox">
+
+            <div class="col-md-4, sideMenu">
+                <header class="menuTitle"> Choose city: </header>
+            </div>
+
+            <div class="header, col-md-8">
+                <button>Toggle</button>
+                <div class="myTitle"> Main cities of Europe </div>
+            </div>
+
+        </div>
+
+        <div class="row, main">
+
+            <nav class="hamburger" id="list">
+
+                <ul data-bind="foreach: address">
+                    <li id="address" data-bind="text: $data, click: $parent.clicker, css: {current: $parent.clicked() === $data}"> </li>
+                </ul>
+            </nav>
 
 
-    <div class="wikipedia-container">
-        <h3 id="wikipedia-header">Relevant Wikipedia Links</h3>
-        <ul id="wikipedia-links">Type in an address above and find relevant Wikipedia articles here!</ul>
-    </div>
+            <div class="col-md-12" id="map"></div>
+
+        </div>
 
 
-    <div class="nytimes-container">
-        <h3 id="nytimes-header">New York Times Articles</h3>
-        <ul id="nytimes-articles" class="article-list">What's going on in your new city? Enter an address and hit submit and the NY Times will tell you here!</ul>
+
     </div>
 
     <script src="js/knockout-3.4.0.js"></script>
     <script src="js/jquery-2.2.3.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBS0rS4yU2Lnbmu-z3njq46VF7JkFnJ3-U"></script> <!-- &callback=initMap -->
     <script src="js/app.js"></script>
+
+
 </body>
 </html>
