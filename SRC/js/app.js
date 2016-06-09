@@ -14,9 +14,8 @@ var ViewModel = function() {
 			{cityName: "Barcelona", cityStreet: "Calle de Segovia", cityDesc: wiki(8, "Barcelona")},
 			{cityName: "London", cityStreet: "The Mall", cityDesc: wiki(9, "London")},
 			{cityName: "Vienna", cityStreet: "Stephanplatz", cityDesc: wiki(10, "Vienna")}
-
-
 		]);
+
 
 	// computed array holding addresses (cityName + cityStreet) for each element from cities
 	self.address = ko.computed(function() {
@@ -25,6 +24,24 @@ var ViewModel = function() {
 			self.wholeAddress().push(self.cities()[i].cityName + ", " + self.cities()[i].cityStreet);
 		}
 		return self.wholeAddress();
+	}, self);
+
+
+	self.filterText = ko.observable("");
+
+	self.searchedList = ko.computed(function() {
+
+		var setValue = self.filterText().toString().toLowerCase();
+
+	    self.newList = ko.observableArray([]);
+
+	    for(var x in self.address()) {
+	      if(self.address()[x].toLowerCase().indexOf(setValue) >= 0) {
+	        self.newList().push(self.address()[x]);
+	      }
+
+	    }
+	    return self.newList();
 	}, self);
 
 	// a flag for <div> element - if it's false then div is not shown
@@ -60,8 +77,9 @@ var ViewModel = function() {
 	initMap(self.address(), self.numberOfaddresses());
 
 }
+var vm = new ViewModel();
 
-ko.applyBindings(new ViewModel());
+ko.applyBindings(vm);
 
 
 var map;
@@ -329,11 +347,11 @@ function setMargins() {
 
 // HAMBURGER menu is a rebuild and customized concept of this code http://codepen.io/corysimmons/pen/KbFcg
 // below function adds class expanded to the DOM elements and starts animation of sliding
-$("button").click(function() {
+$("#toggle").click(function() {
   $(this).toggleClass("expanded");
   $("ul").toggleClass("expanded").toggle("slide");
 
-  $(".sideMenu").toggleClass("col-xs-2").toggle("slide");
+  $(".form-container").toggleClass("col-xs-2").toggle("slide");
   $(".menuTitle").toggleClass("expanded").toggle("slide");
   $(".hamburger").toggleClass("col-xs-2").toggle("slide");
 

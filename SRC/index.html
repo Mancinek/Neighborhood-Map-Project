@@ -18,12 +18,19 @@
 
         <div class="row, upperBox">
 
-            <div class="sideMenu">
+    <!--         <div class="sideMenu">
                 <div class="menuTitle"> Choose city: </div>
-            </div>
+            </div> -->
+
+            <form id="form-container" class="form-container" data-bind="">
+                <div class="inside-container">
+                    <input title="Type in text to filter locations" placeholder="Filter locations" type="text" class ="input-box" id="name" data-bind="value: filterText, valueUpdate: 'keyup'">
+                    <!-- <button title="Click to filter" id="submit-btn" type="submit" data-bind="">Filter</button> -->
+                </div>
+            </form>
 
             <div class="rightBurger, col-xs-12">
-                <button>Toggle</button>
+                <button title="Click to show locations list"id="toggle">Toggle</button>
                 <div class="myTitle"> Main cities of Europe </div>
             </div>
 
@@ -33,7 +40,7 @@
 
             <nav class="hamburger" id="list">
 
-                <ul data-bind="foreach: address">
+                <ul data-bind="foreach: searchedList">
                     <li id="address" data-bind="text: $data, click: $parent.clicker, css: {current: $parent.clicked() === $data}"> </li>
                 </ul>
             </nav>
