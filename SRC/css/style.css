@@ -6,10 +6,6 @@ body {
 	color: black;
 }
 
-/*#list {
-	position: absolute;
-}*/
-
 #map {
 	position: absolute;
 	height: 100%;
@@ -60,11 +56,6 @@ body {
 .rightBurger {
 	display: inline;
 	padding: 0 0 0 0;
-/*	display: -ms-flexbox;
-	display: -moz-flex;
-	display: -webkit-flex;
-	display: flex;
-	justify-content: flex-start;*/
 }
 
 
@@ -99,29 +90,10 @@ body {
 
 }
 
-#submit-btn {
-	top: 15px;
-	right: 15px;
-	border: 0;
-	text-indent: 200%;
-	overflow: hidden;
-	background: url("../img/filter.png") center no-repeat;
-	border: 1px solid #ddd;
-	border-radius: 3px;
-	background-size: 80%;
-	width: 30px;
-	height: 30px;
-	outline: none;
-	-webkit-transition: all 400ms ease;
-	transition: all 400ms ease;
-	margin: 1% 1% 1% 0;
-}
 
 /* HAMBURGER menu is a rebuild and customized concept of this code http://codepen.io/corysimmons/pen/KbFcg */
 
 .hamburger {
-  /*position: fixed;*/
-  /*width: 100%;*/
   display: none;
 }
 
@@ -180,7 +152,7 @@ li:focus {
 @media (max-width: 768px) {
 
 	.input-box{
-		width: 90px;
+		width: 70px;
 		font-size: 12px;
 	}
 
@@ -217,7 +189,7 @@ li:focus {
 @media (max-width: 544px) {
 
 	.input-box{
-		width: 70px;
+		width: 50px;
 		font-size: 10px;
 	}
 
