@@ -1,331 +1,126 @@
-var ViewModel = function() {
 
-	var self = this;
-
-	self.cities = ko.observableArray([
-			{cityName: "Berlin", cityStreet: "Kreuzberg", cityDesc: wiki(0, "Berlin")},
-			{cityName: "Warsaw", cityStreet: "Mokotowska", cityDesc: wiki(1, "Warsaw")},
-			{cityName: "Moscow", cityStreet: "The Mall", cityDesc: wiki(2, "Moscow")},
-			{cityName: "Hamburg", cityStreet: "Neuer Wall", cityDesc: wiki(3, "Hamburg")},
-			{cityName: "Paris", cityStreet: "Notre-Dame", cityDesc: wiki(4, "Paris")},
-			{cityName: "Milan", cityStreet: "Hirschenplatz", cityDesc: wiki(5, "Milan")},
-			{cityName: "Rome", cityStreet: "Hirschenplatz", cityDesc: wiki(6, "Rome")},
-			{cityName: "Madrid", cityStreet: "Calle de Segovia", cityDesc: wiki(7, "Madrid")},
-			{cityName: "Barcelona", cityStreet: "Calle de Segovia", cityDesc: wiki(8, "Barcelona")},
-			{cityName: "London", cityStreet: "The Mall", cityDesc: wiki(9, "London")},
-			{cityName: "Vienna", cityStreet: "Stephanplatz", cityDesc: wiki(10, "Vienna")}
+// TODO: Use of geocoding function
+var cities = ko.observableArray([
+			{name: "Berlin, Brandenburg Gate", city:"Berlin", id: "1", lat: 52.5162778, lon: 13.3755153},
+			{name: "Warsaw, Palace of Culture", city:"Warsaw", id: "2", lat: 52.2318413, lon: 21.0038063},
+			{name: "Moscow, Red Square", city:"Moscow", id: "3",  lat: 55.7539333, lon: 37.6186063},
+			{name: "Hamburg, Townhall", city:"Hamburg", id: "4", lat: 53.5503866, lon: 9.9901799},
+			{name: "Paris, Notre-Dame", city:"Paris", id: "5",  lat: 48.8529717, lon: 2.3477134},
+			{name: "Milan, Sforzesco Castle", city:"Milan", id: "6", lat: 45.4704799, lon: 9.1771438},
+			{name: "Rome, St. Peter's Basilica", city:"Rome", id: "7", lat: 41.9021707, lon: 12.451748},
+			{name: "Madrid, Palacio Cibeles", city:"Madrid", id: "8", lat: 40.4189975, lon: -3.6942011},
+			{name: "Barcelona, Sagrada Familia", city:"Barcelona", id: "9", lat: 41.4036339, lon: 2.1721671},
+			{name: "London, Big Ben", city:"London", id: "10", lat: 51.5007325, lon: -0.1268141},
+			{name: "Vienna, Schonbrunn Palace", city:"Vienna", id: "11", lat: 48.1848684, lon: 16.3100511}
 		]);
 
+function initMap()  {
 
-	// computed array holding addresses (cityName + cityStreet) for each element from cities
-	self.address = ko.computed(function() {
-		self.wholeAddress = ko.observableArray([]);
-		for(var i=0; i < self.cities().length; i++){
-			self.wholeAddress().push(self.cities()[i].cityName + ", " + self.cities()[i].cityStreet);
-		}
-		return self.wholeAddress();
-	}, self);
+	var map = new google.maps.Map(document.getElementById('map'), {
+	center: {
+      lat: 48.1848684,
+      lng: 17.3100511
+    },
+    scrollwheel: true,
+	zoom: 5
 
-
-	self.filterText = ko.observable("");
-
-	self.searchedList = ko.computed(function() {
-
-		var setValue = self.filterText().toString().toLowerCase();
-
-	    self.newList = ko.observableArray([]);
-
-	    for(var x in self.address()) {
-	      if(self.address()[x].toLowerCase().indexOf(setValue) >= 0) {
-	        self.newList().push(self.address()[x]);
-	      }
-
-	    }
-	    return self.newList();
-	}, self);
-
-	// a flag for <div> element - if it's false then div is not shown
-	self.showImage = ko.observable(false);
-
-	// the image url is now empty, but when you click on a list of cities it will be filled with current address url
-	self.imgUrl = ko.observable("");
-	self.clicked = ko.observable("");
-
-
-	// when clicked on a list the clicker function is called
-	self.clicker = function(currentCity) {
-		// sets clicked as current city (if nothing on list of citities has been clicked)
-		// in order to change css and highlight the chosen element
-		// else (if something on city list has been clicked) it removes highlight by setting clicked variable to ""
-		if (self.clicked() == "") {
-			self.clicked(currentCity);
-		} else {
-			self.clicked(""); // --------------------->>>> DO zROBIENIA, podswietlenie klikając na marker, być może GLOBAL VAR że any marker isBouncing
-		}
-		// geting the index number of currently clicked city in address array
-		var markerId = self.address().indexOf(currentCity);
-		// using the above index to look for object (marker) in marker array
-		var chosenMarker = markers[markerId];
-		// using the above chosen marker to pass it to the function resposible for bouncing markers
-		clicks.clickOnList(chosenMarker);
-	}
-
-	// this observable holds the number of addresses in address array
-	self.numberOfaddresses = ko.observable(self.address().length);
-
-	// calls the initMap function with array of addresses and length of this array (number of addresses)
-	initMap(self.address(), self.numberOfaddresses());
-
-}
-var vm = new ViewModel();
-
-ko.applyBindings(vm);
-
-
-var map;
-
-function initMap(addressOnMap, howManyAdresses)  {
-	var myMarker = {lat: 48.957045, lng: 14.802978};
-
-	map = new google.maps.Map(document.getElementById('map'), {
-	    center: myMarker,
-	    scrollwheel: true,
-	    zoom: 4
-  	});
-
-	// loop through all addresses and pass address argument to the geocodeAddress to create markers
-	for(var i=0; i<howManyAdresses; i++) {
-		var geocoder = new google.maps.Geocoder();
-		geocodeAddress(geocoder, map, addressOnMap[i]);
-	}
-
-};
-
-var marker; // global variable that represents each following new marker that is being created by geocodeAddress()
-var markers = []; // each new marker is pushed to this array by geocodeAddress()
-
-// below function translates address to the map coordinates and creates new marker on map
-function geocodeAddress(geocoder, resultsMap, addressOnMap) {
-
-	geocoder.geocode({'address': addressOnMap}, function(results, status) {
-		var markerOptions = {
-			map: resultsMap,
-			animation: google.maps.Animation.DROP,
-			/*title: 'Hello World!',*/
-			position: results[0].geometry.location
-		};
-		if (status === google.maps.GeocoderStatus.OK) {
-			resultsMap.setCenter(results[0].geometry.location);
-			marker = new google.maps.Marker(markerOptions);
-			markers.push(marker);
-
-			// bouncing of marker when clicked
-			clicks.clickOnMarker(marker);
-
-	    } else {
-	     	alert('Geocode was not successful for the following reason: ' + status);
-	    }
+	// errror handling if map is not loaded
 
 	});
-};
 
-// an obcject that holds all map bahavior concerning clicking on marker or on a list
-var clicks = {
-	// keeps track of currently clicked marker
-	currentMarker: null,
-	// position of current marker in markers array
-	currentMarkerNumber: null,
-	// starts animation of bouncing the marker
-	startBounce : function(marker) {
-		marker.setAnimation(google.maps.Animation.BOUNCE);
-	},
-	// stops animation of bouncing the marker
-	stopBounce: function(marker) {
-		marker.setAnimation(null);
-	},
-	// gets the state of animation (is marker bouncing or not)
-	isBouncing: function(marker) {
-		if (marker.getAnimation() !== null){
-			return true;
-		} else {
-			return false;
-		};
-	},
-
-	// bouncing marker when clicked
-	clickOnMarker: function(marker) {
-		marker.addListener('click', function() {
-
-			//isAnyMarkerBouncing();
-			//--------------------------------
-
-			// if current marker is not null (so marker is clicked and assigned as current marker)
-			if (clicks.currentMarker) {
-				// if animation is running and marker is bouncing
-				if (clicks.isBouncing(clicks.currentMarker)) {
-					// stop animation
-					clicks.stopBounce(clicks.currentMarker);
-					// close the info window
-					infoClose();
-/*
-					clicks.currentMarker = marker; //new
-					clicks.startBounce(marker); //new
-					infoOpen(clicks.currentMarker, clicks.currentMarkerNumber);//new*/
-
-
-				// else if animation is not running
-				} else {
-					// set this marker to the currentMarker
-					clicks.currentMarker = marker;
-					// set the position of current marker in markers array
-					clicks.currentMarkerNumber = markers.indexOf(clicks.currentMarker);
-					// add a bounce to this marker
-					clicks.startBounce(marker);
-					// open info window
-					infoOpen(clicks.currentMarker, clicks.currentMarkerNumber);
-
-				}
-			// else if current marker is null then assing new marker, start animation and open info window
-			} else {
-		        // set this marker to the currentMarker
-		        clicks.currentMarker = marker;
-		        // set the position of current marker in markers array
-				clicks.currentMarkerNumber = markers.indexOf(clicks.currentMarker);
-		        // add a bounce to this marker
-		        clicks.startBounce(marker);
-		        //open info window when clicked
-		        infoOpen(clicks.currentMarker, clicks.currentMarkerNumber);
-	        }
-		});
-
-			//--------------------------------
-	},
-	// the below function is a clone of clickOnMarker(), but without marker.addListener - it was created for using it by clicking on list of locations, instead of markers
-	clickOnList: function(marker) {
-
-		// if current marker is not null (so marker is clicked and assigned as current marker)
-		if (clicks.currentMarker) {
-			// if animation is running and marker is bouncing
-			if (clicks.isBouncing(clicks.currentMarker)) {
-				// stop animation
-				clicks.stopBounce(clicks.currentMarker);
-				// close the info window
-				infoClose();
-			// else if animation is not running
-			} else {
-				// set this marker to the currentMarker
-				clicks.currentMarker = marker;
-				// add a bounce to this marker
-				clicks.startBounce(marker);
-				// set the position of current marker in markers array
-				clicks.currentMarkerNumber = markers.indexOf(clicks.currentMarker);
-				// open info window
-				infoOpen(clicks.currentMarker, clicks.currentMarkerNumber);
-			}
-		// else if current marker is null then assing new marker, start animation and open info window
-		} else {
-	        // set this marker to the currentMarker
-	        clicks.currentMarker = marker;
-			// set the position of current marker in markers array
-			clicks.currentMarkerNumber = markers.indexOf(clicks.currentMarker);
-	        // add a bounce to this marker
-	        clicks.startBounce(marker);
-	        //open info window when clicked
-	        infoOpen(clicks.currentMarker, clicks.currentMarkerNumber);
-        }
-	}
-
-};
-
-function isAnyMarkerBouncing() {
-
-	var testArray = [];
-
-	for(var i=0; i<markers.length; i++) {
-		if (clicks.isBouncing(markers[i]) === true) {
-			testArray.push(true);
-		} else {
-			testArray.push(false);
-		}
-	};
-
-	var lastAnswer = false;
-
-	if (testArray.every(true)) {
-		lastAnswer = true;
-	} else {
-		lastAnswer = false;
-	}
-
-	console.log(lastAnswer);
-
-
-
+	initMarkers(map);
 }
 
-function wiki(numberOfcity, cityName) {
+function initMarkers(resultsMap) {
 
-		// errpr handler - after 3 seconds cityDescription gets value of error string
-		var setTimer = setTimeout(function() {
-			var cityDescription = "Error: Failed to load city description"
-			// city descritions are pushed to the infoWindows array with cityName and city number
-			infoWindows.push({noCity: numberOfcity, city: cityName, cityDesc: cityDescription}); //
-        	// infoWindows array is sorted with the numberOfCity in order to infoOpen function could properlny choose the current description of currently clicked marker
-			infoWindows.sort(function(a, b) {
-    			return a.noCity - b.noCity;
-			});
-    	}, 3000);
+	cities().forEach(function(cityData){
 
+		// ---------  changing address to geocoded longitude and latitude --------------
+		var coordinates = new google.maps.LatLng(cityData.lat, cityData.lon);
+
+		var marker = new google.maps.Marker({
+			map: resultsMap,
+			animation: google.maps.Animation.DROP,
+			title: cityData.name,
+			position: coordinates
+		});
+	    // --------- creation of infowindow for marker --------------
+	    var infoWindow; //= new google.maps.InfoWindow({content: "<div class='infowindow'>" + wiki(city.name) + "</div"});
+
+
+	    // ajax call to wikipedia to get the city description
 		$.ajax({
-	        url: ("https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&indexpageids&titles=" + cityName),
+	        url: ("https://en.wikipedia.org/w/api.php?action=query&prop=extracts&format=json&exintro=&indexpageids&titles=" + cityData.city),
 	        dataType: "jsonp",
 	        success: function (wikiData) {
 	        	// to clear the timeout function in case of successful loading the links
-	            clearTimeout(setTimer);
+	            //clearTimeout(setTimer);
 	        	// first id of the page
 	        	var pageID = wikiData.query.pageids[0];
 	        	// extract of wiki object that holds the info about city
-	            var cityDescription = wikiData.query.pages[pageID].extract;
-				// city descritions are pushed to the infoWindows array with cityName and city number
-				infoWindows.push({noCity: numberOfcity, city: cityName, cityDesc: cityDescription}); //
-				// infoWindows array is sorted with the numberOfCity in order to infoOpen() function could properlny choose
-				// the current description of currently clicked marker
-				infoWindows.sort(function(a, b) {
-    				return a.noCity - b.noCity;
-				});
+
+	            cityData.contentString = wikiData.query.pages[pageID].extract;
+
+	            //return cityDescription;
 
 			}
-        });
-};
+    	}).done(function(){
+    		infoWindow = new google.maps.InfoWindow({
+			content: "<div class='infowindow'>" + cityData.contentString + "</div"
+			});
+			setMargins(infoWindow);
+    	}).fail(function() {
+    		infoWindow = new google.maps.InfoWindow({
+			content: "<div class='infowindow'> Error loading infowindow</div"
+			});
+    	});
 
-// contains output from wiki request (cityName and cityDescritption)
-var infoWindows = [];
-// the empty object of new infoWindow, it gets value when new window is initiated (when infoOpen() runs)
-var newInfoWindow = null;
+	    // setting marker object as a property of city
+	    cityData.markerProperty = marker;
 
-// this function inits new infoWindow and opens it on map
-// it takes two arguments, first is the marker that is currently selected (clicked) on map, and second is the number of the marker in markers array, which
-// indicates the number of city
-// this arguments are passed by clicks.clickOnMarker()
-function infoOpen(marker, numberOfdescription) {
-	// content of new info window, taken from infoWindows array holding description of cities
-	var contentString = infoWindows[numberOfdescription].cityDesc;
-	// creates new info window obcject
-	newInfoWindow = new google.maps.InfoWindow({content: "<div class='infowindow'>" + contentString + "</div"});
-	// open created info window on map over marker
-	newInfoWindow.open(map, marker);
+	    // click on marker functionality
+	    marker.addListener('click', function(event) {
+	    	cityData.clickedOpen(marker);
 
-	setMargins();
-}
+	    	cities().forEach(function(city) {
 
-// this function closes currently opened infoWindow
-function infoClose(){
-	newInfoWindow.close();
+	    		// jesli klikniety przed chwila marker (cityData) jest taki jak city name to otworz infowindow
+				if (cityData.name === city.name) {
+					city.infoWindowOpen();
+				} else {
+					city.infoWindowClose();
+				}
+      		});
+	    });
+
+	    cityData.clickedOpen = function(marker) {
+	    	infoWindow.open(resultsMap, marker);
+
+	    	marker.setAnimation(google.maps.Animation.BOUNCE);
+	    }.bind(this);
+
+		resultsMap.addListener('click', function() {
+			cities().forEach(function(city) {
+				city.infoWindowClose();
+			});
+		});
+
+		cityData.infoWindowClose = function() {
+			infoWindow.close(resultsMap, marker);
+			marker.setAnimation(null);
+		}.bind(this);
+
+		cityData.infoWindowOpen = function() {
+			infoWindow.open(resultsMap, marker);
+		}.bind(this);
+
+	});
+
 }
 
 // setting css margins to none (thanks to: http://en.marnoto.com/2014/09/5-formas-de-personalizar-infowindow.html)
-function setMargins() {
-	google.maps.event.addListener(newInfoWindow, 'domready', function() {
+function setMargins(infoWindow) {
+	google.maps.event.addListener(infoWindow, 'domready', function() {
 
 	   // Reference to the DIV which receives the contents of the infowindow using jQuery
 	   var iwOuter = $('.gm-style-iw');
@@ -363,5 +158,72 @@ $("#toggle").click(function() {
   $("#map").toggleClass("col-xs-12");
   $("#map").toggleClass("col-xs-10");
 
-
 });
+
+function ViewModel() {
+	var self = this;
+
+	self.addressList = ko.observableArray([]);
+
+	cities().forEach(function(cityData) {
+ 		cityData.visible = ko.observable(true);
+		self.addressList.push(cityData);
+	});
+
+	self.clickedMapMarker = function(name, event) {
+		cities().forEach(function(cityData) {
+			if (event.target.id === cityData.id) { // id is used because clickedMapMarker() uses name as passed value and we need other value to use
+				cityData.clickedOpen(cityData.markerProperty);
+			} else {
+				cityData.infoWindowClose();
+			}
+		});
+	};
+
+	self.filterText = ko.observable("");
+
+	// filteredAddresses sets the visibility of addresses on list
+	self.filteredAddresses = ko.computed(function() {
+
+	cities().forEach(function(cityData) {
+
+		var inputText = self.filterText().toLowerCase();
+		var searchedCity = cityData.name.toLowerCase();
+
+	  // Set visible binding to the folowing boolean. Filters on type.
+		cityData.visible(searchedCity.indexOf(inputText) >= 0);
+
+	  // Have to add check for existence of mapMarker since on initial render,
+	  // the marker doesn't yet exist by the time filteredAddresses() is called / built.
+	  // FILTER THE MARKERS ON MAP
+	 	if (cityData.markerProperty) {
+			cityData.markerProperty.setVisible(searchedCity.indexOf(inputText) >= 0);
+		}
+
+		// start clickedOpen on markers when filtering on addresses list
+		if (cityData.visible() && inputText && cityData.markerProperty) {
+			cityData.clickedOpen(cityData.markerProperty);
+			cityData.infoWindowClose();
+		} else if (cityData.markerProperty) {
+			// Close all infowindows if the filter doesn't have a match.
+			cityData.infoWindowClose();
+		}
+	})
+
+  	}, this);
+
+
+}
+
+var vm = new ViewModel;
+ko.applyBindings(vm);
+
+
+
+
+
+
+
+
+
+
