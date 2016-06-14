@@ -19,7 +19,7 @@ To run this game [download](https://github.com/Mancinek/Neighborhood-Map-Project
 
 On the page you'll find two spaces: the **list of places** in chosen cities and the **map with markers** on it.
 
-The see the list you have to click the "hamburger icon" - the list will slide in the screen. You can click in list to see on map where the clicked place is located on map. Also the info window will pop up over the selected place. In the info window you can read addtional information from Wikipedia about the city, where the chosen place is located.
+To see the list you have to click the "hamburger icon" - the list will slide in the screen. You can click in list to see on map where the clicked place is located on map. Also the info window will pop up over the selected place. In the info window you can read addtional information from Wikipedia about the city, where the chosen place is located.
 
 You can also click directly on marker on map. The selected marker will start to bounce and the info about city will be shown. To deactivate the chosen marker you can click on other place on list/map (the other place will be highlighted) or click on somewhere in map where is no marker placed (all locations will be deactivated).
 
