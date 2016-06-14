@@ -4,14 +4,14 @@ The application shows **places in Europe I'd like to visit**. The list of cities
 
 ##Contents
 
-1. How to run
+1. How to run it
 2. How to use it
 3. Error handling
 4. To Do's and Issues
 5. How the code is organized
 
 
-##How to run
+##How to run it
 
 To run this game [download](https://github.com/Mancinek/Neighborhood-Map-Project/archive/master.zip) the repository and open the `index.html` file in your browser - the app will start immediately.
 
