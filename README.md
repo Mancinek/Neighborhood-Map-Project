@@ -7,7 +7,7 @@ The application shows **places in Europe I'd like to visit**. The list of cities
 1. How to run it
 2. How to use it
 3. Error handling
-4. To do's and Issues
+4. To do's and issues
 5. How the code is organized
 
 
@@ -34,7 +34,7 @@ The application uses API and in case of any errors with connection you will be n
 - when Google Map will not be loaded, you'll see the alert window,
 - when AJAX call to Wikipedia will fail, you'll see error message in info window.
 
-## To do's and Issues
+## To do's and issues
 
 At this moment clicking on list of addresses highlights the appropriate marker on map. To improve usability, it would be good to implement additional functionality that highlights the clicked list element (and also highligths the list element when marker is clicked).
 
