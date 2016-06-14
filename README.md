@@ -1,4 +1,4 @@
-#Neighborhood Map - Cities of Europe
+#Neighborhood Map - Places to visit in Europe
 
 The application shows **places in Europe I'd like to visit**. The list of cities is placed on Google Map as markers. This app gives also addtional info about this cities. This repository gives you basis to customize the map and set your own places.
 
