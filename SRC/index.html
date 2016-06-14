@@ -1,63 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Neighborhood Map</title>
     <link href="https://fonts.googleapis.com/css?family=Lato:300,100" rel="stylesheet">
-
-
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/style.css">
-
 </head>
-<body>
 
+<body>
 
     <div class="container-fluid">
 
-        <!-- HAMBURGER menu is a rebuild and customized concept of this code http://codepen.io/corysimmons/pen/KbFcg -->
-
         <div class="row, upperBox">
 
+            <!-- this form contains the input box for filtering places on map and on list-->
             <form id="form-container" class="form-container">
                 <div class="inside-container">
-                    <input title="Type in text to filter locations" placeholder="Filter locations" type="text" class ="input-box" id="name" data-bind="value: filterText, valueUpdate: 'keyup'">
+                    <!-- the input text is binded the filter text observable -->
+                    <input title="Type in text to filter locations" placeholder="Filter locations" type="text" class="input-box" id="name" data-bind="value: filterText, valueUpdate: 'keyup'">
                 </div>
             </form>
 
+            <!-- this div contains Toggle button and title of site-->
             <div class="rightBurger, col-xs-12">
-                <button title="Click to show locations list"id="toggle">Toggle</button>
-                <div class="myTitle"> Main cities of Europe </div>
+                <button title="Click to show locations list" id="toggle">Toggle</button>
+                <div class="myTitle"> Places to visit in Europe </div>
             </div>
 
         </div>
 
         <div class="row, main">
 
+            <!-- the list with locations -->
             <nav class="hamburger" id="list">
+                <!-- it has several bindings:
+                    - text binding - it shows places names from addressList
+                    - click binding - handles the click event
+                    - visible binding - handles the visibility property when filtering using input box
+                    - attr binding - helper attribute for handling click event
+                 -->
                 <ul data-bind="foreach: addressList">
-                    <li id="address" data-bind="text: $data.name, click: $parent.clickedMapMarker, visible: $data.visible, attr: {id: $data.id}"> </li> <!-- css: {current: $parent.clicked() === $data} -->
+                    <li id="address" data-bind="text: $data.name, click: $parent.clickedMapMarker, visible: $data.visible, attr: {id: $data.id}"> </li>
                 </ul>
-
             </nav>
 
+            <!-- map div that contains the Google Map -->
             <div class="map, col-xs-12" id="map"></div>
 
         </div>
-
-
 
     </div>
 
     <script src="js/knockout-3.4.0.js"></script>
     <script src="js/jquery-2.2.3.min.js"></script>
+    <!-- script holding locations array (places names, cities names, ids, cooridinates of places) -->
     <script src="js/locations.js"></script>
+    <!-- script that handles map initialization and setting markers -->
     <script src="js/app.js"></script>
+    <!-- ViewModel -->
     <script src="js/vm.js"></script>
+    <!-- initialization of Google Map and onerror handler -->
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBS0rS4yU2Lnbmu-z3njq46VF7JkFnJ3-U&callback=initMap" onerror="googleMapError()"></script>
 
-
-
 </body>
+
 </html>

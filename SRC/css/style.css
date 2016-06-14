@@ -1,223 +1,205 @@
 body {
-	background: url("../img/texture2.png") repeat left top;
-	display:block;
- 	font-family: 'Lato', sans-serif;
-	font-weight: 300;
-	color: black;
+    background: url("../img/texture2.png") repeat left top;
+    display: block;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color: black;
 }
-
 #map {
-	position: absolute;
-	height: 100%;
-	display: inline;
-	right:0px;
-	padding: 0 0 0 0;
-    /*top:50px;
-    bottom:0;*/
+    position: absolute;
+    height: 92%;
+    display: inline;
+    right: 0px;
+    padding: 0 0 0 0;
 }
-
-.main, .upperBox {
-	display: -ms-flexbox;
-	display: -moz-flex;
-	display: -webkit-flex;
-	display: flex;
-	justify-content: flex-start;
+.main,
+.upperBox {
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: flex-start;
 }
-
-.current {
-    background: #e7e7e7;
+.currentTransparent {
+    background: transparent;
 }
+/* infowindow customization (classes .infowindow and .gm-style-iw) thanks to: http://en.marnoto.com/2014/09/5-formas-de-personalizar-infowindow.html*/
 
-/* infowindow customization thanks to: http://en.marnoto.com/2014/09/5-formas-de-personalizar-infowindow.html*/
-
-.infowindow{
-	background: url("../img/texture2.png") repeat left top;
-	font-family: 'Open Sans Condensed', sans-serif;
-	font-size: 12px;
-	font-weight: 100;
-	padding: 10px;
- 	color: black;
- 	margin: 1px;
-	border-radius: 2px 2px 0 0;
-
+.infowindow {
+    background: url("../img/texture2.png") repeat left top;
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 100;
+    padding: 10px;
+    color: black;
+    margin: 1px;
+    border-radius: 2px 2px 0 0;
 }
-
 .gm-style-iw {
-   width: 350px !important;
-   height: 300px !important;
-   top: 0 !important;
-   left: 0 !important;
-   background-color: #fff;
-   box-shadow: 20px 10px 6px rgba(0, 0, 0, 0.5);
-   border: 1px solid black;
-   border-radius: 1px 1px 0 0;
+    width: 350px !important;
+    height: 300px !important;
+    top: 0 !important;
+    left: 0 !important;
+    background-color: #fff;
+    box-shadow: 20px 10px 6px rgba(0, 0, 0, 0.5);
+    border: 1px solid black;
+    border-radius: 1px 1px 0 0;
 }
-
 .rightBurger {
-	display: inline;
-	padding: 0 0 0 0;
+    display: inline;
+    padding: 0 0 0 0;
 }
-
-
 .form-container {
-	display: none;
-	padding: 1% 0 0 0;
-	text-align: center;
+    display: none;
+    padding: 1% 0 0 0;
+    text-align: center;
 }
-
-.inside-container{
-	display: inline;
+.inside-container {
+    display: inline;
 }
-
-.input-box{
-	width: 120px;
+.input-box {
+    width: 120px;
 }
-
 .myTitle {
-	display: inline;
-	margin-left: 1%;
-	font-size: 18px;
+    display: inline;
+    margin-left: 1%;
+    font-size: 18px;
 }
-
-.menuTitle{
-	display: none;
-	text-align: center;
-	padding: 7% 0;
-	border-bottom: 1px solid #ddd;
-	text-decoration: none;
-	color: #222;
-	font-size: 18px;
-
+.menuTitle {
+    display: none;
+    text-align: center;
+    padding: 7% 0;
+    border-bottom: 1px solid #ddd;
+    text-decoration: none;
+    color: #222;
+    font-size: 18px;
 }
-
-
+.wikipedia {
+    text-align: right;
+    font-size: 8px;
+}
 /* HAMBURGER menu is a rebuild and customized concept of this code http://codepen.io/corysimmons/pen/KbFcg */
 
 .hamburger {
-  display: none;
+    display: none;
+    height: 90%;
 }
-
-.hamburger ul{
-  display: none;
-  padding: 0 1% 0 0;
+.hamburger ul {
+    display: none;
+    padding: 0 1% 0 0;
 }
-
-
 #toggle {
-  top: 15px;
-  right: 15px;
-  border: 0;
-  text-indent: 200%;
-  overflow: hidden;
-  background: url("../img/menu.png") center no-repeat;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-  background-size: 80%;
-  width: 30px;
-  height: 30px;
-  outline: none;
-  -webkit-transition: all 400ms ease;
-  transition: all 400ms ease;
-  margin: 1% 1% 1% 0;
+    top: 15px;
+    right: 15px;
+    border: 0;
+    text-indent: 200%;
+    overflow: hidden;
+    background: url("../img/menu.png") center no-repeat;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background-size: 80%;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    -webkit-transition: all 400ms ease;
+    transition: all 400ms ease;
+    margin: 1% 1% 1% 0;
 }
-
 #toggle.expanded {
-  -webkit-transform: rotate(-90deg);
-          transform: rotate(-90deg);
-  background-color: transparent;
-  border: 1px solid #ddd;
-
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    background-color: transparent;
+    border: 1px solid #ddd;
 }
-
 .hamburger li {
-  display: block;
-  padding-left: 0;
-  padding-right: 0;
+    display: block;
+    padding-left: 0;
+    padding-right: 0;
 }
-
-li{
-  text-align: center;
-  padding: 7% 2% 7% 7%;
-  border-bottom: 1px solid #ddd;
-  text-decoration: none;
-  color: #222;
-  font-weight: 100;
+li {
+    text-align: center;
+    padding: 7% 2% 7% 7%;
+    border-bottom: 1px solid #ddd;
+    text-decoration: none;
+    color: #222;
+    font-weight: 100;
 }
 li:hover,
 li:active,
 li:focus {
-  background: #e7e7e7;
+    background: #e7e7e7;
 }
-
+@media (max-width: 1000px) {
+    .hamburger li {
+        font-size: 14px;
+    }
+}
 @media (max-width: 768px) {
-
-	.input-box{
-		width: 70px;
-		font-size: 12px;
-	}
-
-	.form-container {
-		padding-left: 0;
-	}
-
-	.hamburger {
-		padding-left: 0;
-	}
-
-	.menuTitle {
-		font-size: 14px;
-	}
-
-	.infowindow{
-		font-size: 10px;
-	}
-
-	.myTitle {
-		font-size: 14px;
-	}
-
-	.hamburger li {
-		  font-size: 12px;
-	}
-
-	.gm-style-iw {
-		width: 250px !important;
-		height: 200px !important;
-	}
+    #map {
+        height: 100%;
+    }
+    .input-box {
+        width: 70px;
+        font-size: 12px;
+    }
+    .form-container {
+        padding-left: 0;
+    }
+    .hamburger {
+        padding-left: 0;
+    }
+    .hamburger li {
+        font-size: 12px;
+    }
+    .menuTitle {
+        font-size: 14px;
+    }
+    .infowindow {
+        font-size: 10px;
+    }
+    .myTitle {
+        font-size: 14px;
+    }
+    .gm-style-iw {
+        width: 250px !important;
+        height: 200px !important;
+    }
 }
-
 @media (max-width: 544px) {
-
-	.input-box{
-		width: 50px;
-		font-size: 10px;
-	}
-
-	.form-container {
-		padding-left: 0;
-	}
-
-	.hamburger {
-		padding-left: 0;
-	}
-
-	.menuTitle {
-		font-size: 12px;
-	}
-
-	.infowindow{
-		font-size: 9px;
-	}
-
-	.myTitle {
-		font-size: 12px;
-	}
-	.hamburger li {
-		font-size: 10px;
-	}
-
-	.gm-style-iw {
-		width: 200px !important;
-		height: 150px !important;
-	}
+    .input-box {
+        width: 50px;
+        font-size: 10px;
+    }
+    .form-container {
+        padding-left: 0;
+    }
+    .hamburger {
+        padding-left: 0;
+    }
+    .menuTitle {
+        font-size: 12px;
+    }
+    .infowindow {
+        font-size: 9px;
+    }
+    .myTitle {
+        font-size: 12px;
+    }
+    .hamburger li {
+        font-size: 10px;
+    }
+    .gm-style-iw {
+        width: 200px !important;
+        height: 150px !important;
+    }
+}
+@media (max-height: 633px) {
+    .hamburger li {
+        padding: 10px 0 10px 0;
+    }
+}
+@media (max-height: 470px) {
+    .hamburger li {
+        padding: 3% 0 3% 0;
+    }
 }
